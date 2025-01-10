@@ -12,7 +12,7 @@ git branch: 'main', url: 'https://github.com/Nithesh1606/WebAppPipeline.git'
         }
         stage('Install Dependencies') {
             steps {
-                sh 'npm install -g htmlhint'
+                sh 'sudo npm install -g htmlhint'
             }
         }
         stage('Run HTMLLint') {
