@@ -1,31 +1,28 @@
 pipeline {
     agent any
+    environment {
+        PATH = "/usr/bin/npm:${env.PATH}"
+    }
     stages {
-        stage('Checkout Code') {
+        stage('Checkout') {
             steps {
-                echo "Cloning the Git repository..."
-                git branch: 'main', url: 'https://github.com/Nithesh1606/WebAppPipeline.git'
+                git 'https://github.com/Nithesh1606/WebAppPipeline.git'
             }
         }
-        stage('Code Quality Check') {
+        stage('Install Dependencies') {
             steps {
-                echo "Running code quality checks..."
+                sh 'npm install -g htmlhint'
+            }
+        }
+        stage('Run HTMLLint') {
+            steps {
+                sh 'htmlhint index.html'
+            }
+        }
+        stage('Deploy to Server') {
+            steps {
                 sh '''
-                npm install -g htmlhint || true
-                htmlhint index.html
-                '''
-            }
-        }
-        stage('Archive Artifacts') {
-            steps {
-                echo "Archiving web application artifacts..."
-                archiveArtifacts artifacts: '**/*', fingerprint: true
-            }
-        }
-        stage('Deploy to Web Server') {
-            steps {
-                echo "Deploying to web server..."
-                sh '''
+                # Assuming you're deploying to a server directory
                 WEB_SERVER_DIR=/var/www/html/web-app
                 mkdir -p $WEB_SERVER_DIR
                 cp -r * $WEB_SERVER_DIR
