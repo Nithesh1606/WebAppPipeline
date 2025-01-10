@@ -4,7 +4,7 @@ pipeline {
         stage('Checkout Code') {
             steps {
                 echo "Cloning the Git repository..."
-                git branch: 'main', url: 'https://github.com/your-username/web-app.git'
+                git branch: 'main', url: 'https://github.com/Nithesh1606/WebAppPipeline.git'
             }
         }
         stage('Code Quality Check') {
