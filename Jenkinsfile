@@ -6,8 +6,9 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/Nithesh1606/WebAppPipeline.git'
+git branch: 'main', url: 'https://github.com/Nithesh1606/WebAppPipeline.git'
             }
+
         }
         stage('Install Dependencies') {
             steps {
